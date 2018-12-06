@@ -1,0 +1,101 @@
+<style lang="less">
+    .avatar {
+        width: 80px;
+        height: 80px;
+        display: block;
+        border-radius: 50%;
+    }
+    .avatar-wrap {
+        margin-top: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .introduction {
+        height: 3.3em;
+    }
+    .error-message {
+        color: #E64340;
+    }
+</style>
+<template>
+    <view class="page">
+
+
+        <view class="page__bd">
+
+            <view class="weui-form-preview__bd">
+
+                <view class="avatar-wrap">
+                    <image class="avatar" src="{{ user.avator_url }}" />
+                </view>
+
+                <view class="weui-form-preview__item">
+                    <view class="weui-form-preview__label">姓名</view>
+                    <view class="weui-form-preview__value">{{ user.name }}</view>
+                </view>
+                <view class="weui-form-preview__item">
+                    <view class="weui-form-preview__label">邮箱</view>
+                    <view class="weui-form-preview__value">{{ user.mail }}</view>
+                </view>
+                <view class="weui-form-preview__item">
+                    <view class="weui-form-preview__label">GitHub</view>
+                    <view class="weui-form-preview__value">{{ user.github }}</view>
+                </view>
+                <view class="weui-form-preview__item">
+                    <view class="weui-form-preview__label">个人简介</view>
+                    <view class="weui-form-preview__value">{{ user.description }}</view>
+                </view>
+            </view>
+
+        </view>
+
+
+        <view wx:if="{{ loggedIn }}">
+
+        </view>
+        <view wx:else>
+            <navigator class="weui-cell weui-cell_access" url="/pages/auth/login">
+                <view class="weui-cell__bd">管理员登录</view>
+                <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+            </navigator>
+        </view>
+
+
+
+    </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  import api from '@/utils/api'
+
+  export default class User extends wepy.page {
+    config = {
+      navigationBarTitleText: '关于我'
+    }
+
+    data = {
+      loggedIn: false,
+      user: null
+    }
+
+    async onShow() {
+      if (wepy.getStorageSync('access_token')) {
+        this.loggedIn = true
+      }
+
+      if (wepy.getStorageSync('api.about')) {
+        this.user = wepy.getStorageSync('api.about')
+      } else {
+        let response = await api.about()
+          if (response.statusCode === 200) {
+              this.user = response.data
+              this.$apply()
+          }
+      }
+
+    }
+  }
+</script>
