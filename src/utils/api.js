@@ -1,7 +1,7 @@
 import wepy from 'wepy'
 
 // 服务器接口地址
-const host = 'http://localhost.phpzc.net/api'
+const host = 'http://localhost/api'
 
 const request = async (options, showLoading = true) => {
   // 简化开发，如果传入字符串则转换成 对象
@@ -43,7 +43,7 @@ const login = async (params = {}) => {
 
   // 请求接口 weapp/authorizations
   let authResponse = await request({
-    url: 'weapp/authorizations',
+    url: 'weapp/authorizations2',
     data: params,
     method: 'POST'
   })

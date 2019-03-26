@@ -45,6 +45,7 @@
 <script>
     import wepy from 'wepy'
     import 'wepy-async-function'
+    import api from '@/utils/api'
 
     export default class extends wepy.app {
       config = {
@@ -84,9 +85,11 @@
 
       async onLaunch() {
             // WePY 中使用 Await
-        let res = await wepy.login()
-        console.log('login: ', res)
+        // let res = await wepy.login()
+        // console.log('login: ', res)
+
+        let res = await api.login()
         wepy.setStorageSync('wepy.login', res)
-      }
+  }
 }
 </script>
