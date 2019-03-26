@@ -52,15 +52,15 @@
         </view>
 
 
-        <view wx:if="{{ loggedIn }}">
+        <!--<view wx:if="{{ loggedIn }}">-->
 
-        </view>
-        <view wx:else>
-            <navigator class="weui-cell weui-cell_access" url="/pages/auth/login">
-                <view class="weui-cell__bd">管理员登录</view>
-                <view class="weui-cell__ft weui-cell__ft_in-access"></view>
-            </navigator>
-        </view>
+        <!--</view>-->
+        <!--<view wx:else>-->
+            <!--<navigator class="weui-cell weui-cell_access" url="/pages/auth/login">-->
+                <!--<view class="weui-cell__bd">管理员登录</view>-->
+                <!--<view class="weui-cell__ft weui-cell__ft_in-access"></view>-->
+            <!--</navigator>-->
+        <!--</view>-->
 
 
 
@@ -90,12 +90,11 @@
         this.user = wepy.getStorageSync('api.about')
       } else {
         let response = await api.about()
-          if (response.statusCode === 200) {
-              this.user = response.data
-              this.$apply()
-          }
+        if (response.statusCode === 200) {
+          this.user = response.data
+          this.$apply()
+        }
       }
-
     }
   }
 </script>

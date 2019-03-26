@@ -48,9 +48,7 @@
 
   import api from '@/utils/api'
 
-
   export default class Login extends wepy.page {
-
     config = {
       navigationBarTitleText: '登录'
     }
@@ -102,7 +100,6 @@
 
           // 201 为登录正确，返回上一页
           if (authResponse.statusCode === 201) {
-
             wepy.navigateBack()
           }
         } catch (err) {
@@ -121,7 +118,6 @@
 
         // 登录成功返回上一页
         if (authResponse.statusCode === 201) {
-
           wepy.navigateBack()
         }
 
@@ -129,7 +125,6 @@
           //
           console.log('用户不存在')
         } else {
-
           if (authResponse.message === '只有管理员可以登录') {
             wepy.showModal({
               title: '提示',
@@ -137,8 +132,6 @@
             })
           }
         }
-
-
       } catch (err) {
         wepy.showModal({
           title: '提示',

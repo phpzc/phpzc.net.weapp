@@ -33,28 +33,23 @@ const request = async (options, showLoading = true) => {
     })
   }
   return response
-
 }
 
-
-
-//登录
+// 登录
 const login = async (params = {}) => {
-
   let loginData = await wepy.login()
 
   params.code = loginData.code
 
-  //请求接口 weapp/authorizations
+  // 请求接口 weapp/authorizations
   let authResponse = await request({
     url: 'weapp/authorizations',
     data: params,
     method: 'POST'
   })
 
-
   if (authResponse.statusCode === 201) {
-    wepy.setStorageSync('access_token',authResponse.data.access_token)
+    wepy.setStorageSync('access_token', authResponse.data.access_token)
     wepy.setStorageSync('access_token_expired_at', new Date().getTime() + authResponse.data.expires_in * 1000)
   }
 
@@ -62,10 +57,9 @@ const login = async (params = {}) => {
 }
 
 const about = async () => {
-
   let aboutResponse = await request({
-    url:'about',
-    method:'GET'
+    url: 'about',
+    method: 'GET'
   })
 
   if (aboutResponse.statusCode === 200) {
@@ -74,7 +68,6 @@ const about = async () => {
 
   return aboutResponse
 }
-
 
 export default {
   request,

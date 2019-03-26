@@ -35,10 +35,9 @@
   import Toast from 'wepy-com-toast'
 
   export default class Index extends wepy.page {
-
-      components = {
-          toast: Toast
-      }
+    components = {
+      toast: Toast
+    }
 
     data = {
       topics: [{
@@ -74,6 +73,5 @@
         });
         */
     }
-
-  }
+}
 </script>
