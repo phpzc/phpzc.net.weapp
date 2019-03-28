@@ -52,7 +52,6 @@
         pages: [
           'pages/index',
           'pages/user',
-          'pages/auth/login',
           'pages/show'
         ],
         window: {
