@@ -80,17 +80,7 @@
     }
 
     async onShow() {
-          /*
-        let promise = this.$invoke('toast', 'show', {
-            title: 'Welcome!',
-            //imgClassName:''
-            img: 'https://raw.githubusercontent.com/kiinlam/wetoast/master/images/star.png'
-        });
 
-        promise.then((d) => {
-            console.log('toast done');
-        });
-        */
     }
 
     async getArticles(page = 1, reset = false) {
@@ -152,10 +142,10 @@
         path: '/pages/index',
         imageUrl: '../images/hk.jpg',
         success: (res) => {
-          console.log("转发成功", res);
+
         },
         fail: (res) => {
-          console.log("转发失败", res);
+
         }
       }
     }

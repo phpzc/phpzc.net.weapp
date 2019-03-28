@@ -96,7 +96,6 @@
 
             }catch (err) {
 
-                //console.log(err)
                 wepy.showModal({
                     title: '提示',
                     content: '服务器错误，请联系管理员'
@@ -113,10 +112,10 @@
                 path: '/pages/show?id='+ this.article.id,
                 imageUrl: '../images/'+ this.article.category_name +'.png',
                 success: (res) => {
-                    console.log("转发成功", res);
+
                 },
                 fail: (res) => {
-                    console.log("转发失败", res);
+
                 }
             }
         }
