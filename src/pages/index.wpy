@@ -32,14 +32,14 @@
         <repeat for="{{ articles }}" key="id" index="index" item="article">
           <navigator url="" class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active">
             <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
-              <image class="weui-media-box__thumb avatar" src="https://avatars0.githubusercontent.com/u/3666436?v=3&s=460" />
+              <image class="weui-media-box__thumb avatar" src="/images/{{ article.category_name }}.png" />
             </view>
             <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
               <view class="weui-media-box__title topic-title">{{ article.title }}</view>
 
               <view class="weui-media-box__info topic-info">
                 <view class="weui-media-box__info__meta">{{ article.category_name }} • </view>
-                <view class="weui-media-box__info__meta">张成 • </view>
+                <view class="weui-media-box__info__meta">{{ article.user.name }} • </view>
                 <view class="weui-media-box__info__meta">{{ article.time_diff }}</view>
               </view>
             </view>
@@ -101,7 +101,8 @@
         let articleResponse = await api.request({
           url:'articles',
           data: {
-            page:page
+            page:page,
+            include:'user',
           }
         })
 
