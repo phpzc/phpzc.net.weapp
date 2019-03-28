@@ -91,6 +91,12 @@
 
         let res = await api.login()
         wepy.setStorageSync('wepy.login', res)
-  }
-}
+
+          wepy.showShareMenu({
+              withShareTicket: true
+          })
+      }
+
+
+    }
 </script>

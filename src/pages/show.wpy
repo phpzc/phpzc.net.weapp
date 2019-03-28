@@ -106,6 +106,21 @@
         onLoad(options) {
             this.getArticle(options.id)
         }
+
+        onShareAppMessage (res) {
+            return {
+                title: 'PHP张成的博客',
+                path: '/pages/show?id='+ this.article.id,
+                imageUrl: '../images/'+ this.article.category_name +'.png',
+                success: (res) => {
+                    console.log("转发成功", res);
+                },
+                fail: (res) => {
+                    console.log("转发失败", res);
+                }
+            }
+        }
+
     }
 
 </script>

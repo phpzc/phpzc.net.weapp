@@ -145,5 +145,19 @@
       await this.getArticles(this.page)
       this.$apply()
     }
+
+    onShareAppMessage (res) {
+      return {
+        title: 'PHP张成的博客',
+        path: '/pages/index',
+        imageUrl: '../images/hk.jpg',
+        success: (res) => {
+          console.log("转发成功", res);
+        },
+        fail: (res) => {
+          console.log("转发失败", res);
+        }
+      }
+    }
 }
 </script>

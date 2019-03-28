@@ -1,7 +1,7 @@
 import wepy from 'wepy'
 
 // 服务器接口地址
-const host = 'http://localhost/api'
+const host = 'https://www.phpzc.net/api'
 
 const request = async (options, showLoading = true) => {
   // 简化开发，如果传入字符串则转换成 对象
