@@ -52,7 +52,8 @@
         pages: [
           'pages/index',
           'pages/user',
-          'pages/auth/login'
+          'pages/auth/login',
+          'pages/show'
         ],
         window: {
           backgroundTextStyle: 'light',

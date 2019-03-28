@@ -1,0 +1,111 @@
+<style lang="less">
+    @import "../wxParse/wxParse.wxss";
+    page{
+        background-color: #FFFFFF;
+    }
+    .avatar-wrap {
+        position: relative;
+        margin-right: 10px;
+    }
+    .avatar {
+        width: 50px;
+        height: 50px;
+        display: block;
+        border-radius: 50%;
+    }
+    .topic-title {
+        padding: 15px;
+    }
+</style>
+
+<template>
+    <import src="../wxParse/wxParse.wxml" />
+    <view class="page">
+        <view class="page__bd">
+            <view class="weui-cells weui-cells_after-title">
+                <navigator class="weui-cell">
+                    <view class="weui-cell__hd avatar-wrap">
+                        <image class="avatar" src="/images/{{ article.category_name }}.png"/>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <view>{{ article.user.name }}</view>
+                        <view class="page__desc">博主/PHP工程师</view>
+                    </view>
+                </navigator>
+            </view>
+            <view class="topic-title">
+                <view class="page__title">{{ article.title }}</view>
+                <view class="weui-media-box__info topic-info">
+                    <view class="weui-media-box__info__meta">{{ article.category_name }} • </view>
+                    <view class="weui-media-box__info__meta">{{ article.time_diff }} • </view>
+                    <view class="weui-media-box__info__meta">{{ article.visit }} 次浏览</view>
+                </view>
+            </view>
+            <view class="weui-article">
+                <!--<rich-text nodes="{{ html }}" bindtap="tap"></rich-text>-->
+                <template is="wxParse" data="{{wxParseData:html.nodes}}" />
+            </view>
+        </view>
+    </view>
+</template>
+
+<script>
+    import wepy from 'wepy'
+    import api from '@/utils/api'
+    import util from '@/utils/util'
+    import WxParse from '../wxParse/wxParse.js'
+
+    export default class ArticleShow extends wepy.page {
+        config = {
+            navigationBarTitleText:'博客详情'
+        }
+
+        data = {
+            article:null,
+            bindName:'html',
+        }
+
+        //获取博客数据
+        async getArticle(id) {
+
+            try{
+                let articleResponse = await api.request({
+                    url:'articles/'+id,
+                    data: {
+                        include:'user',
+                    }
+                })
+                let article = articleResponse.data
+
+                //格式化
+                article.time_diff = util.diffForHumans(article.time)
+                var that = this
+
+
+                if(article.type === 1){
+                    let html = article.markdown
+                    WxParse.wxParse('html', 'md', html, that, 5);
+
+                }else{
+                    let html = article.content
+                    WxParse.wxParse('html', 'html',html, that, 5);
+                }
+
+                this.article = article
+                this.$apply()
+
+            }catch (err) {
+
+                //console.log(err)
+                wepy.showModal({
+                    title: '提示',
+                    content: '服务器错误，请联系管理员'
+                })
+            }
+        }
+        onLoad(options) {
+            this.getArticle(options.id)
+        }
+    }
+
+</script>

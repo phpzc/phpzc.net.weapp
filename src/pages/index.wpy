@@ -30,7 +30,7 @@
       <view class="weui-panel__hd">博客列表</view>
       <view class="weui-panel__bd">
         <repeat for="{{ articles }}" key="id" index="index" item="article">
-          <navigator url="" class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active">
+          <navigator url="/pages/show?id={{ article.id }}" class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active">
             <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
               <image class="weui-media-box__thumb avatar" src="/images/{{ article.category_name }}.png" />
             </view>
@@ -64,9 +64,7 @@
   import api from '@/utils/api'
   import util from '@/utils/util'
 
-
   export default class Index extends wepy.page {
-
     config = {
       enablePullDownRefresh: true
     }
@@ -77,7 +75,7 @@
 
     data = {
       articles: [],
-      page:1,
+      page: 1,
       noMoreData: false
     }
 
@@ -97,19 +95,19 @@
 
     async getArticles(page = 1, reset = false) {
       try {
-        //请求文章列表接口
+        // 请求文章列表接口
         let articleResponse = await api.request({
-          url:'articles',
+          url: 'articles',
           data: {
-            page:page,
-            include:'user',
+            page: page,
+            include: 'user'
           }
         })
 
-        let articles = articleResponse.data.data;
+        let articles = articleResponse.data.data
 
-        //处理时间
-        articles.forEach( function (article) {
+      // 处理时间
+        articles.forEach(function (article) {
           article.time_diff = util.diffForHumans(article.time)
         })
 
@@ -117,13 +115,12 @@
 
         let pagination = articleResponse.data.meta.pagination
 
-        if(pagination.current_page === pagination.total_pages) {
+        if (pagination.current_page === pagination.total_pages) {
           this.noMoreData = true
         }
 
         this.$apply()
-
-      }catch (err) {
+      } catch (err) {
         wepy.showModal({
           title: '提示',
           content: '服务器错误，请联系管理员'
@@ -136,12 +133,12 @@
 
     async onPullDownRefresh() {
       this.page = 1
-      await this.getArticles(1,true)
+      await this.getArticles(1, true)
       wepy.stopPullDownRefresh()
     }
 
     async onReachBottom() {
-      if( this.noMoreData) {
+      if (this.noMoreData) {
         return
       }
       this.page = this.page + 1
